@@ -2,49 +2,33 @@ import React, { Component } from 'react';
 import './App.css';
 class App extends Component {
 
-  constructor(props) {
-    super(props); 
-    this.handleClick = this.handleClick.bind(this);
-    
+  constructor() {
+    super(); 
+    this.state = { 
+      lyrics : "" 
+    };
+
 }
-componentWillMount(){
-  fetch('https://api.lyrics.ovh/v1/"Metallica"/"FUEL"')
-  .then((resp) => resp.text()) 
- .then(function(data){
-  
- })
-  
-  
-}
+
 handleClick = () => {
+  fetch('https://api.lyrics.ovh/v1/"Metallica"/"FUEL"')
+  .then(response=> response.json())
+  .then(data=> this.setState({lyrics: data.lyrics}))
 
-
-  
 }
-
-
-  render() {
+render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <form>
-            <label>
-              Artista:
-             <input type="text" name="artist" ref = {this.artis}/>
-            </label>
-            {this.state}
-            <label>
-              Cancion:
-          <input type="text" name="song"  ref = { this.song}/>
-            </label>
-          </form>
      
           <button onClick={this.handleClick}>
        Buscar
       </button>
-        </header>
+      <h4>State Array: {this.state.lyrics}</h4>
+
       </div>
-    );
+        );
+       
+  
   }
 }
 
